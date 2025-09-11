@@ -1,0 +1,72 @@
+server:
+  servlet:
+    context-path: /payment-service/api/v1
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+    tryItOutEnabled: true
+  show-actuator: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+      show-components: always
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+
+app:
+  ignoreSession: true
+  allowedOrigins: "*"
+  allowedMethods: GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD
+  allowedHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Headers,Access-Control-Allow-Methods,Accept,Authorization,Content-Type,Method,Origin,X-Forwarded-For,X-Real-IP
+  exposedHeaders: X-Get-Header
+  environment: develop
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/develop
+    driverClassName: org.postgresql.Driver
+    username: aldo
+    password: admin
+    type: org.springframework.jdbc.datasource.SimpleDriverDataSource
+    tomcat:
+      connection-properties: useUnicode=true;characterEncoding=utf-8;
+    hikari:
+      minimumIdle: 4
+      maximumPoolSize: 8
+      idleTimeout: 15000
+      poolName: SpringBootJPAHikariCP
+      maxLifetime: 1800000
+      connectionTimeout: 30000
+  sql:
+    init:
+      encoding: UTF-8
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
