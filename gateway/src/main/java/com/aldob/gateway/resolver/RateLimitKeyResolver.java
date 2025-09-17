@@ -7,12 +7,11 @@ import reactor.core.publisher.Mono;
 
 import java.util.Objects;
 
-@Componen
+@Component
 public class RateLimitKeyResolver implements KeyResolver {
-
     @Override
     public Mono<String> resolve(ServerWebExchange exchange) {
-        return Mono.just(Objects.requireNonNull(exchange.getRequest().getRemoteAddress()).getAddress().getHostAddress());
-
+        return Mono.just(Objects.requireNonNull(
+                exchange.getRequest().getRemoteAddress()).getAddress().getHostAddress());
     }
 }

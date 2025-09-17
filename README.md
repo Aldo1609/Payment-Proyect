@@ -28,6 +28,7 @@ The project is organized into two main services, each with a specific responsibi
 * **Maven**: Dependency management tool.
 
 ---
+![img.png](img.png)
 
 ## 🔧 Environment Setup
 
